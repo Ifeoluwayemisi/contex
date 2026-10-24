@@ -1,0 +1,511 @@
+﻿ContextKeeper — Product Requirements Document (PRD)
+Product name: ContextKeeper
+Tagline: Your files remember, so you don't have to.
+Challenge: Hacktoberfest 2026 — Open-Source AI Challenge, Week 3: Slow and Steady
+Primary AI model: Google Gemma (open-weight)
+Development environment: Google AI Studio Build mode
+Target platform: Responsive web application
+Primary goal: Deliver a functional, demonstrable AI-powered personal knowledge library that reduces the effort of organizing and finding forgotten information.
+________________
+
+
+1. Product Overview
+1.1 The problem
+People continuously accumulate digital information: PDFs, screenshots, research papers, tutorials, notes, downloaded resources, project documentation, and other files.
+Over time, these files become difficult to manage. Users forget filenames, lose track of where they saved documents, and struggle to remember which file contained a particular piece of information.
+Traditional file organization depends heavily on manual effort. Users must rename files, create folders, assign categories, and remember their own organizational systems. Conventional filename search also fails when a user remembers the content of a document but not its name.
+Existing AI document-chat tools often focus on asking questions about individual documents. ContextKeeper instead focuses on the broader problem of maintaining and retrieving useful context across a personal collection of files.
+1.2 The solution
+ContextKeeper is an AI-powered personal librarian that automatically understands, organizes, connects, and retrieves information from a user's digital documents.
+Users upload files, allow ContextKeeper to index them, and then search their collection using natural language. The application returns relevant documents, explains why each result matches, and provides evidence from the original source.
+The user should not need to manually organize every file before the library becomes useful.
+1.3 Product vision
+Create a personal knowledge library that becomes more useful as users add information, while requiring as little ongoing organization as possible.
+1.4 Product promise
+Save it once. Find it when you need it.
+ContextKeeper should reduce the cognitive load associated with remembering filenames, maintaining folder structures, and repeatedly searching through large collections of digital information.
+________________
+
+
+2. Target Users
+Primary users
+Students and researchers
+* Save lecture notes, papers, research materials, and reference documents.
+* Need to recover information from previously downloaded resources.
+* Often remember an idea but not the title or filename of its source.
+Developers and technology professionals
+* Accumulate tutorials, documentation, code notes, setup guides, and project references.
+* Need to retrieve information from past projects without manually inspecting every file.
+Job seekers and professionals
+* Collect CV versions, application instructions, job descriptions, certificates, and career resources.
+* Need to retrieve specific documents or information quickly.
+Personal knowledge collectors
+* Save articles, screenshots, PDFs, and miscellaneous resources for future use.
+* Want a searchable personal library without the overhead of maintaining a complex knowledge-management system.
+Primary user need
+“I know I saved something useful, but I don't remember its filename, where it is, or exactly which document contains it.”
+Secondary user need
+“I have too many files to organize manually, and I want them to become searchable and useful without spending hours sorting them.”
+________________
+
+
+3. Core User Experience
+The application must deliver this complete workflow:
+1. The user opens ContextKeeper.
+2. The user uploads one or more supported documents.
+3. ContextKeeper extracts their text and creates searchable document records.
+4. Gemma analyzes the extracted content and generates useful summaries, topics, and contextual information.
+5. The user sees the documents appear in their library.
+6. The user enters a natural-language search query.
+7. ContextKeeper retrieves relevant documents using search and ranking logic.
+8. The interface displays matching files, relevance explanations, and source excerpts.
+9. The user opens a document, copies a useful excerpt, or saves a collection.
+10. The user can return to the library later without having to rebuild it.
+The experience must be functional from upload to retrieval. A visually attractive interface with simulated AI results is not an acceptable implementation.
+________________
+
+
+4. Functional Requirements
+4.1 Document ingestion
+Requirement: Users must be able to upload supported files into their personal library.
+Initial supported formats:
+* PDF
+* TXT
+* Markdown (.md)
+Required behavior:
+* Support multiple-file selection.
+* Support drag-and-drop uploads.
+* Display filename, file type, size, and processing status.
+* Validate file extensions, MIME types, file sizes, and empty documents.
+* Provide meaningful error messages for unsupported, corrupted, scanned, or unreadable files.
+* Allow users to retry failed processing.
+* Prevent accidental duplicate records where practical.
+* Preserve the original filename and associate it with every indexed document.
+Use text extraction libraries rather than sending entire files to the model unnecessarily.
+For the MVP, scanned PDFs that require OCR may be marked as unsupported, with a clear explanation. OCR can be added if the core workflow is already stable.
+4.2 Automatic AI indexing
+Requirement: Every successfully ingested document must become searchable and receive useful contextual metadata.
+Gemma should generate structured information containing:
+* A concise document summary.
+* Main topics and keywords.
+* Important named entities where useful.
+* The document's apparent purpose or type.
+* Distinctive phrases that may help users remember it.
+* Relevant dates explicitly present in the document, when identifiable.
+* Related-topic suggestions, when supported by the content.
+The model must not invent dates, authors, filenames, or facts absent from the source.
+Metadata must be generated from extracted document text, not from filenames alone.
+The interface must communicate whether a document is uploading, extracting, indexing, ready, or failed.
+If AI indexing fails, retain the successfully extracted text and allow the document to remain available for ordinary text search.
+4.3 Natural-language search
+Requirement: Users must be able to find documents using descriptions of what they remember.
+Example queries:
+* “Find the tutorial I saved about deploying a React application.”
+* “Which document explains environment variables in Node.js?”
+* “Show me my notes about machine learning research.”
+* “Find the resource about API authentication that mentions JWT.”
+* “I saved something about internship applications. Can you find it?”
+Search must not depend exclusively on exact filename matches.
+The retrieval pipeline should combine:
+1. Filename and metadata matching.
+2. Full-text search over extracted document contents.
+3. Semantic retrieval, using compatible embeddings or another meaningful semantic matching mechanism where feasible.
+4. Ranking and filtering of candidate documents.
+Gemma must contribute to the core AI workflow by understanding document content and generating contextual metadata and explanations. Deterministic search and ranking logic should handle predictable operations.
+Do not send the entire library to Gemma for every search. Retrieve relevant candidates first and provide only the necessary context to the model.
+4.4 Search results and evidence
+Each search result must show:
+* Original filename.
+* Document type.
+* Short summary.
+* Relevant topics.
+* A snippet from the source document.
+* A concise explanation of why the result matches the query.
+* An action to open or inspect the document.
+When possible, show the matching page number for PDFs or the relevant text location.
+Evidence integrity is mandatory.
+Every displayed source snippet must be traceable to extracted source text. If Gemma produces a quotation, the backend must verify that the quotation exists in the document before presenting it as direct evidence.
+Do not present model-generated paraphrases as verbatim quotations.
+If a result is relevant only by inference, label the explanation appropriately.
+If no useful result is found, say so and offer a practical next step rather than inventing a match.
+4.5 Smart collections
+Requirement: Reduce the need to create folders manually.
+ContextKeeper should automatically suggest collections based on document content, such as:
+* Web Development
+* Research and Learning
+* Career Opportunities
+* Project Documentation
+* Business and Finance
+* Personal Reference
+These are examples, not mandatory fixed categories.
+The model may suggest topics, but the application must not force every document into a single category. A document may belong to several collections.
+Users must be able to:
+* View suggested collections.
+* Open a collection to see its documents.
+* Rename a collection.
+* Add or remove documents from a collection.
+* Create a collection manually.
+* Ignore or dismiss suggestions.
+For the initial release, automatic collection suggestions are sufficient. Avoid implementing a complex autonomous folder-management agent.
+4.6 Document inspection
+Users must be able to open a document's details and inspect:
+* Filename and metadata.
+* Generated summary.
+* Extracted text, where appropriate.
+* Topics and suggested collections.
+* Related documents.
+* Source excerpts associated with search results.
+Where possible, PDF previews should display the original document or a usable text representation.
+If previewing a format is not supported, provide a clear fallback instead of a broken viewer.
+4.7 Related documents
+ContextKeeper should identify potentially related documents based on shared topics, content similarity, and other meaningful signals.
+For each relationship, provide a short explanation, such as:
+* “Both documents discuss PostgreSQL deployment.”
+* “This note references the same project mentioned in the README.”
+* “These documents cover different aspects of API authentication.”
+Do not imply that documents are related merely because they share a generic word.
+Related-document suggestions must be optional and should not block the main upload-and-search workflow.
+4.8 Saved library
+The MVP is designed for a single user on a single browser profile.
+Use IndexedDB for persistent client-side storage of document records, extracted text, generated metadata, collections, and saved preferences where practical.
+The library should remain available after refreshing or reopening the application in the same browser, subject to browser storage limits and the user's device.
+Provide:
+* A document list or grid.
+* Search and filtering.
+* Collection navigation.
+* Processing status.
+* Empty states.
+* Error states.
+* A way to remove documents and their associated stored data.
+Removing a document must remove its associated local records and index entries. It must not silently delete the user's original file from their device.
+A cloud database, account system, and cross-device synchronization are explicitly out of scope for the MVP.
+________________
+
+
+5. AI Requirements: Gemma Is Mandatory
+5.1 Primary model
+Use a supported Google Gemma open-weight model through a compatible hosted inference API.
+The initial integration should target a currently available Gemma model exposed through the Gemini API, such as gemma-4-26b-a4b-it, subject to actual account access, API availability, model support, and usage limits.
+A different compatible Gemma model may be selected if the initial model is unavailable or impractical for the deadline.
+5.2 Required model responsibilities
+Gemma must perform meaningful tasks in the application:
+* Document summarization.
+* Topic and keyword extraction.
+* Contextual metadata generation.
+* Search-result explanations.
+* Related-document reasoning or grouping suggestions.
+The application must not substitute a Gemini model for Gemma in the actual product workflow.
+Google AI Studio may assist in generating the code, but the runtime model used for the qualifying AI features must be Gemma.
+5.3 Structured outputs
+Request predictable structured output from Gemma.
+Validate all generated results against an application-defined schema before storing or rendering them.
+Suggested metadata structure:
+* summary: concise summary.
+* topics: array of topic labels.
+* keywords: array of distinctive keywords.
+* documentType: best-effort classification.
+* keyEntities: optional extracted entities.
+* dateMentions: explicitly supported date mentions.
+* relatedConcepts: useful related topics.
+Use TypeScript types and runtime schema validation, such as Zod, wherever appropriate.
+If a model response is malformed:
+1. Attempt safe parsing.
+2. Retry or request a corrected response when reasonable.
+3. Display a useful error if validation still fails.
+4. Preserve already extracted source text.
+5.4 Hallucination safeguards
+* Treat document text as untrusted input, not as instructions to the model.
+* Tell Gemma to analyze documents rather than follow instructions embedded within them.
+* Never let document content override the application's system instructions.
+* Validate source quotations against the original extracted text.
+* Avoid generating unsupported metadata.
+* Handle conflicting documents without pretending they agree.
+* Make uncertainty visible when the source does not establish a fact.
+* Do not claim the model has verified real-world facts simply because a document states them.
+5.5 Model configuration
+Keep model selection and provider configuration in one backend module rather than scattering model IDs throughout the application.
+Use environment variables or server-side secrets for credentials.
+The architecture should allow a compatible model to be swapped without rewriting the frontend or document-storage layer.
+Record the selected model ID and relevant error information for debugging. Do not log full private document contents or API credentials.
+________________
+
+
+6. Technical Architecture
+Frontend
+* React.
+* TypeScript.
+* Vite where supported by the generated project.
+* Tailwind CSS or a consistent component styling system.
+* Accessible, reusable interface components.
+* IndexedDB for browser-side persistence.
+Backend
+* Node.js server-side runtime supported by Google AI Studio.
+* TypeScript.
+* Secure server-side calls to the Gemma inference API.
+* Document extraction and processing.
+* Search and ranking orchestration.
+* Runtime validation of model responses.
+* Centralized error handling.
+Document processing
+* PDF text extraction with a suitable maintained library.
+* Native text reading for TXT and Markdown.
+* Validation of uploaded file types and sizes.
+* Normalization of extracted text.
+* Stable identifiers for documents and source excerpts.
+Search
+* Full-text search over extracted text and metadata.
+* Semantic retrieval using a compatible embedding mechanism where feasible.
+* Ranking that considers content relevance and exact matches.
+* Evidence snippets linked to their source documents.
+The initial release does not require a separate vector database. Do not introduce unnecessary infrastructure before the core workflow is reliable.
+Persistence
+* IndexedDB for the user's local library.
+* No mandatory authentication.
+* No mandatory cloud database.
+* No cloud synchronization in the MVP.
+Hosting
+Use Google AI Studio's supported preview and deployment workflow initially. Keep the code exportable and suitable for eventual GitHub publication and independent deployment.
+________________
+
+
+7. Visual and UX Design Direction
+7.1 Design philosophy
+ContextKeeper should feel like a quiet, intelligent personal library—not a generic chatbot, a corporate analytics dashboard, or an overdecorated AI landing page.
+The experience should communicate:
+* Calm and clarity.
+* Trust and control.
+* Good information hierarchy.
+* Minimal effort.
+* Confidence in finding information.
+The design should make a large collection feel manageable without hiding useful details.
+7.2 Color direction
+Do not impose a predetermined purple or pink brand palette.
+Choose the palette based on the product's identity and accessibility.
+Preferred direction:
+* Warm off-white, parchment, or neutral gray surfaces for reading.
+* Deep charcoal, ink, or similarly readable primary text.
+* A restrained accent such as muted teal, forest green, blue, or another suitable color selected through the overall design.
+* Subtle borders and muted secondary text.
+* Clear semantic colors for success, processing, warning, and error states.
+The accent must be used consistently for primary actions, selected navigation, and interactive highlights.
+Avoid excessive gradients, neon colors, excessive glassmorphism, and decorative animations that distract from finding information.
+Check contrast and legibility throughout the interface. Do not use color as the only indicator of status.
+7.3 Layout
+The main desktop experience should use a three-part structure where space permits:
+Left navigation
+* ContextKeeper wordmark.
+* Library.
+* Smart collections.
+* Recent documents.
+* Settings or storage information.
+Main content area
+* Greeting or concise contextual heading.
+* Prominent natural-language search field.
+* Upload action and drag-and-drop area.
+* Recent or recently indexed documents.
+* Suggested collections or topics.
+* Search results when a query is submitted.
+Context panel or document details
+* Summary.
+* Topics.
+* Related documents.
+* Evidence snippets.
+* Document metadata.
+On smaller screens, use a responsive layout with a compact navigation pattern and a single-column document experience.
+7.4 Interaction design
+* Search must be easy to find.
+* Upload must be possible from the main library view.
+* Show progress during extraction and indexing.
+* Use skeletons or subtle loading indicators when useful.
+* Provide helpful empty states with clear next steps.
+* Keep destructive actions explicit and reversible where feasible.
+* Avoid requiring a user to navigate through multiple screens to complete common tasks.
+* Use realistic document names and content in any clearly labelled demo dataset.
+7.5 Typography and components
+Use a highly readable sans-serif typeface for interface elements and document titles.
+Use consistent spacing, restrained corner radii, and clear typographic hierarchy.
+Create reusable components for:
+* Search input.
+* Upload dropzone.
+* Document cards or rows.
+* Collection cards.
+* Status indicators.
+* Source-evidence panels.
+* Empty states.
+* Error and success messages.
+* Confirmation dialogs.
+The result must feel like one cohesive product rather than disconnected generated screens.
+________________
+
+
+8. Privacy, Security and Reliability
+8.1 Privacy
+The initial version uses hosted Gemma inference.
+This means extracted document text sent for AI processing is transmitted to the configured inference service. The interface and documentation must disclose this clearly.
+Do not claim that AI processing is entirely offline or that documents never leave the user's device.
+Prefer local storage for the user's persistent library and avoid retaining document content on the backend beyond what is necessary to process a request.
+The app must explain which data is stored locally and which content is sent to the inference provider.
+8.2 Security
+* Never expose the model API key in frontend code.
+* Store secrets in the supported server-side secret configuration.
+* Validate uploaded files and impose sensible size limits.
+* Do not execute uploaded content.
+* Prevent unsafe rendering of document content.
+* Do not trust model-generated HTML or code.
+* Handle errors without exposing secrets or internal stack traces to users.
+* Avoid logging full document contents.
+* Provide a way to clear the stored library.
+8.3 Reliability
+The application must:
+* Handle empty documents.
+* Handle corrupted or unsupported files.
+* Handle API timeouts and rate limits.
+* Handle invalid model responses.
+* Allow retries after recoverable failures.
+* Preserve successfully extracted text if indexing fails.
+* Prevent a single failed document from breaking the whole upload batch.
+* Display meaningful error messages.
+8.4 Accessibility
+* Support keyboard navigation.
+* Provide accessible names for interactive controls.
+* Use readable text sizes and adequate contrast.
+* Provide visible focus states.
+* Avoid relying exclusively on color for status or meaning.
+* Ensure core functionality works on desktop and mobile-sized screens.
+________________
+
+
+9. Non-Functional Requirements
+Performance
+* The interface should render without waiting for AI processing.
+* Search should operate over the indexed library rather than repeatedly uploading all documents.
+* Show progress for long-running operations.
+* Limit the amount of source text sent to the model to what is necessary.
+* Use pagination or incremental rendering if the library becomes large.
+Maintainability
+* Keep model integration separate from UI components.
+* Separate document parsing, indexing, search, and presentation logic.
+* Use typed interfaces and schema validation.
+* Keep provider credentials and configuration out of the frontend.
+* Write a clear README with setup instructions.
+Portability
+* Keep the code exportable from Google AI Studio.
+* Avoid unnecessary dependence on proprietary UI components.
+* Make the model adapter replaceable.
+* Document the required environment variables and deployment assumptions.
+________________
+
+
+10. MVP Acceptance Criteria
+The MVP is ready for demonstration only when the following criteria pass:
+1. A user can upload supported TXT, Markdown, and text-based PDF files.
+2. The backend extracts usable text from supported documents.
+3. Gemma generates real document summaries and topic metadata.
+4. Generated metadata is validated before being saved.
+5. A user can search for a concept without knowing the exact filename.
+6. Search returns relevant documents with understandable explanations.
+7. Displayed direct quotations are verified against the extracted source text.
+8. The application can show a useful empty result when no matching document is found.
+9. Users can inspect document summaries and related information.
+10. Users can create or use suggested collections.
+11. The library persists across refreshes in the same browser.
+12. Failed indexing does not erase already extracted text.
+13. API keys are not exposed in client-side code.
+14. The application clearly explains its hosted inference and privacy behavior.
+15. The core workflow functions without relying on mock AI responses.
+Suggested evaluation
+Prepare a small, fixed test library of 10–15 documents covering different topics and overlapping terminology.
+Evaluate:
+* Whether relevant documents appear in search results.
+* Whether the correct document is ranked highly.
+* Whether source quotations are valid.
+* Whether summaries are faithful to the source.
+* Whether irrelevant files are incorrectly presented as strong matches.
+* How long indexing and search take.
+* How the app behaves when a document is incomplete or contradictory.
+Record actual results rather than inventing performance claims.
+________________
+
+
+11. Explicitly Out of Scope
+Do not build these features during the initial competition release:
+* User registration and authentication.
+* Paid subscriptions or billing.
+* Team collaboration.
+* Shared cloud libraries.
+* Browser extensions.
+* Email or messaging integrations.
+* Autonomous deletion, renaming, or moving of original files.
+* Full OCR support for scanned documents.
+* A general-purpose conversational chatbot.
+* Complex multi-agent orchestration.
+* Mandatory vector-database infrastructure.
+* Model fine-tuning.
+* Mobile-native applications.
+* Claims of fully offline AI processing.
+These features may be considered later if there is a clear user need.
+________________
+
+
+12. Hacktoberfest Positioning
+Theme alignment
+ContextKeeper rewards laziness by automating the repetitive work of understanding, organizing, and retrieving saved information.
+Users do not have to spend time creating a perfect folder structure or remembering filenames before their information becomes useful.
+Open-AI contribution
+Gemma is a core part of the product's content-understanding and contextual-indexing workflow.
+The application demonstrates the value of open-weight AI through:
+* Model choice and replaceability.
+* Customizable document-processing behavior.
+* A transparent retrieval pipeline.
+* A potential path to local inference in a future version.
+* The ability to adapt the system rather than building exclusively around one closed model.
+The article must accurately distinguish these current capabilities from future possibilities.
+Demo narrative
+The demo should show:
+1. A messy collection of sample files.
+2. Uploading and indexing those files.
+3. Automatically generated topics and summaries.
+4. A natural-language query that does not match the filename.
+5. Relevant search results with evidence from the original documents.
+6. A smart collection that reduces manual organization.
+Competition deliverables
+* Public source-code repository.
+* Working demo or deployment.
+* README with setup instructions.
+* Clear explanation of Gemma's role.
+* Screenshots or a short demo video.
+* Evaluation results and known limitations.
+* DEV Community article using the required #devchallenge and #hf26challenge tags.
+* A clear explanation of why open innovation matters to the project.
+________________
+
+
+13. Implementation Priorities
+Priority 0 — Core workflow
+* Project setup.
+* File upload and text extraction.
+* Gemma API integration.
+* Metadata generation.
+* Searchable document library.
+* Natural-language retrieval.
+Priority 1 — Trust and usability
+* Evidence-linked results.
+* Quote verification.
+* Error handling.
+* Persistent local library.
+* Smart collections.
+* Responsive interface.
+Priority 2 — Competition polish
+* Related-document suggestions.
+* Evaluation and metrics.
+* Demo dataset.
+* Deployment.
+* README and DEV article.
+If time becomes limited, preserve the upload-to-search workflow and evidence integrity before implementing lower-priority features.
+________________
+
+
+14. Definition of Done
+ContextKeeper is complete for the Hacktoberfest MVP when a new user can upload a small collection of documents, allow Gemma to index them, retrieve a forgotten resource through a natural-language query, understand why the result matches, and inspect evidence from the original source—all through a polished, functional interface.
+The product should save real effort, clearly demonstrate open-weight AI in action, and make no unsupported claims about privacy, model performance, or functionality.
+Product principle: The user should not have to remember how they organized their information. ContextKeeper should help them find what they need with as little effort as possible.

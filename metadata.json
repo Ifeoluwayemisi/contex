@@ -1,0 +1,6 @@
+{
+  "name": "ContextKeeper",
+  "description": "Your files remember, so you don't have to. AI-powered personal knowledge library with Google Gemma runtime indexing, smart collections, and evidence-verified retrieval.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

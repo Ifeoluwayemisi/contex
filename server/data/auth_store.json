@@ -1,0 +1,166 @@
+{
+  "users": {
+    "user_38c658e5-10de-4468-aec1-842412573766": {
+      "id": "user_38c658e5-10de-4468-aec1-842412573766",
+      "email": "alice@example.com",
+      "passwordHash": "3655c90abd6631e75f7a9c0ebcc4b022:8c8440bace8636caee158d2420fe9ff6fdd40dd9bcc03fe3b3fc3a156612fdce99767ce684e23d47d5806b5ea060cba56e7fde3b15346eef7e6d042d0e3492b2",
+      "name": "alice",
+      "createdAt": "2026-10-24T12:26:17.698Z"
+    },
+    "user_ca9c745a-49a3-47cc-a204-413f2d754265": {
+      "id": "user_ca9c745a-49a3-47cc-a204-413f2d754265",
+      "email": "alice_1792844874323@example.com",
+      "passwordHash": "b22c651e388b5a60d0f7454196248437:e3f5999d560c61834c258fd9ef12f26ecae3e4bd90c3c00580bcc58f314c417b0035fb3451b0c01b64ab5b46c953f9756b85d066111a80b481f083ecfda9d7d2",
+      "name": "alice_1792844874323",
+      "createdAt": "2026-10-24T12:27:54.416Z"
+    },
+    "user_cf1d9aed-af98-40a7-99bb-b3082daf00e2": {
+      "id": "user_cf1d9aed-af98-40a7-99bb-b3082daf00e2",
+      "email": "bob_1792844874323@example.com",
+      "passwordHash": "b934eb2725fa8b312c48dbbaab634c60:f47f7f061f4037ae3e4974ea7e7c343d0ac56770f64b2cfb63137e25b5aef60f225d00e1e070ef836785d859d98a7a04ec11310148eb6dd55c7cca621f516436",
+      "name": "bob_1792844874323",
+      "createdAt": "2026-10-24T12:27:54.606Z"
+    },
+    "user_d891fae9-ad3e-47a2-bc2a-3c8025889f33": {
+      "id": "user_d891fae9-ad3e-47a2-bc2a-3c8025889f33",
+      "email": "alice_1792844941469@example.com",
+      "passwordHash": "1953d2992cd32a70e0947a64778152f3:45abe100cfe3a2105774681ce7e5604938a67014e24b9cda4f36d09f5d947fba7a6a0bd74dd731f1de2d5bb3db6d8b6a4ff94ad64f04871e5c84f8eb09494653",
+      "name": "alice_1792844941469",
+      "createdAt": "2026-10-24T12:29:01.548Z"
+    },
+    "user_946bddda-9461-402a-9079-892e0ed9e0d1": {
+      "id": "user_946bddda-9461-402a-9079-892e0ed9e0d1",
+      "email": "bob_1792844941469@example.com",
+      "passwordHash": "beeedb57adfa638ed892cdc840038839:49b522084b861ff5ed394580f8303aaba2af77e7bce648260880006da8db597d1fdab2ead5f9e791b0631eb98cde1a2a2bf7ea49119bfcb6e5aed0f56178065a",
+      "name": "bob_1792844941469",
+      "createdAt": "2026-10-24T12:29:01.741Z"
+    },
+    "user_45f13c8c-9c37-4738-a3cd-e868a3cef22a": {
+      "id": "user_45f13c8c-9c37-4738-a3cd-e868a3cef22a",
+      "email": "alice_1792844980643@example.com",
+      "passwordHash": "b3e5b95786e2e9f311adb79ea890b8cc:a458a6ae92e07ba299d008e65182bf0258d312e0e06eb5ca5bc82cda37a378684f8182ab412c42e0926910253a047c48ca92c8eb86bd361a31ee1e9094a7b3f0",
+      "name": "alice_1792844980643",
+      "createdAt": "2026-10-24T12:29:40.728Z"
+    },
+    "user_de828f7e-dc6d-454c-85fd-cf2b65bfeb2b": {
+      "id": "user_de828f7e-dc6d-454c-85fd-cf2b65bfeb2b",
+      "email": "bob_1792844980643@example.com",
+      "passwordHash": "bd29402ec1fac724a4c20ac2e3210a12:6e14ff8daafbecd26cc56fb64b5b2c628066f65c7606234a5949105520188172a0967d565e88aa6ce1be80687f6608438ecb3b812471eb8eb05139a2098eec85",
+      "name": "bob_1792844980643",
+      "createdAt": "2026-10-24T12:29:40.947Z"
+    }
+  },
+  "sessions": {
+    "5b62a18c6474eab45267f81bd728227ebf5ad84a2001b115daf63fb85c8071b8": {
+      "token": "5b62a18c6474eab45267f81bd728227ebf5ad84a2001b115daf63fb85c8071b8",
+      "userId": "user_38c658e5-10de-4468-aec1-842412573766",
+      "createdAt": "2026-10-24T12:26:17.699Z",
+      "expiresAt": 1794054377699
+    },
+    "813f518b0940e38fdce763366f816cafe27b447a47ea6c460bb8be3838fd8dc6": {
+      "token": "813f518b0940e38fdce763366f816cafe27b447a47ea6c460bb8be3838fd8dc6",
+      "userId": "user_ca9c745a-49a3-47cc-a204-413f2d754265",
+      "createdAt": "2026-10-24T12:27:54.417Z",
+      "expiresAt": 1794054474417
+    },
+    "88cd0bfb37f9b72085096ba53430ea58075bb0040b509711b3d70f5bb722cd97": {
+      "token": "88cd0bfb37f9b72085096ba53430ea58075bb0040b509711b3d70f5bb722cd97",
+      "userId": "user_ca9c745a-49a3-47cc-a204-413f2d754265",
+      "createdAt": "2026-10-24T12:27:54.501Z",
+      "expiresAt": 1794054474501
+    },
+    "ea114a86d46dd274361db7799e6ae47f053b4b0dfdadc9a550d7a9a4bf0a0045": {
+      "token": "ea114a86d46dd274361db7799e6ae47f053b4b0dfdadc9a550d7a9a4bf0a0045",
+      "userId": "user_cf1d9aed-af98-40a7-99bb-b3082daf00e2",
+      "createdAt": "2026-10-24T12:27:54.606Z",
+      "expiresAt": 1794054474606
+    },
+    "929a0c273b34db260e55b51ea4a0188445db51715c13228cee639884ede6ac7b": {
+      "token": "929a0c273b34db260e55b51ea4a0188445db51715c13228cee639884ede6ac7b",
+      "userId": "user_d891fae9-ad3e-47a2-bc2a-3c8025889f33",
+      "createdAt": "2026-10-24T12:29:01.548Z",
+      "expiresAt": 1794054541548
+    },
+    "ff8917deffb2048012ef1e9c2b731eff40aad1f59e36af10aff0e5b81a7959f1": {
+      "token": "ff8917deffb2048012ef1e9c2b731eff40aad1f59e36af10aff0e5b81a7959f1",
+      "userId": "user_d891fae9-ad3e-47a2-bc2a-3c8025889f33",
+      "createdAt": "2026-10-24T12:29:01.629Z",
+      "expiresAt": 1794054541629
+    },
+    "324c9690343b70c3e8e172f18056d16e0dadd017632a7e2fa1db310901f0041e": {
+      "token": "324c9690343b70c3e8e172f18056d16e0dadd017632a7e2fa1db310901f0041e",
+      "userId": "user_946bddda-9461-402a-9079-892e0ed9e0d1",
+      "createdAt": "2026-10-24T12:29:01.741Z",
+      "expiresAt": 1794054541741
+    },
+    "7ea705befbb8a807919bf187c92686beeda183853333ce7258dd8862a46622ce": {
+      "token": "7ea705befbb8a807919bf187c92686beeda183853333ce7258dd8862a46622ce",
+      "userId": "user_45f13c8c-9c37-4738-a3cd-e868a3cef22a",
+      "createdAt": "2026-10-24T12:29:40.729Z",
+      "expiresAt": 1794054580729
+    },
+    "5241c0992fe1df3d4a6cae434dde559f1223bf65afb3988b85530a96692d46e1": {
+      "token": "5241c0992fe1df3d4a6cae434dde559f1223bf65afb3988b85530a96692d46e1",
+      "userId": "user_45f13c8c-9c37-4738-a3cd-e868a3cef22a",
+      "createdAt": "2026-10-24T12:29:40.822Z",
+      "expiresAt": 1794054580822
+    },
+    "0be13fe85b6eecdcbcc7fba5f7a1fe0220eb53984aea7e9211dca4482ee81abd": {
+      "token": "0be13fe85b6eecdcbcc7fba5f7a1fe0220eb53984aea7e9211dca4482ee81abd",
+      "userId": "user_de828f7e-dc6d-454c-85fd-cf2b65bfeb2b",
+      "createdAt": "2026-10-24T12:29:40.947Z",
+      "expiresAt": 1794054580947
+    }
+  },
+  "history": [
+    {
+      "id": "hist_cd26b48c-f990-4208-8e8f-c3a79deccb41",
+      "userId": "user_de828f7e-dc6d-454c-85fd-cf2b65bfeb2b",
+      "query": "postgresql replication failover",
+      "recallMode": true,
+      "resultsCount": 2,
+      "timestamp": "2026-10-24T12:29:40.948Z"
+    },
+    {
+      "id": "hist_918e67f4-ba47-4c31-a003-d2ab690663b7",
+      "userId": "user_45f13c8c-9c37-4738-a3cd-e868a3cef22a",
+      "query": "campus outreach collegiate societies",
+      "recallMode": true,
+      "resultsCount": 1,
+      "timestamp": "2026-10-24T12:29:40.948Z"
+    },
+    {
+      "id": "hist_c33a3b39-feff-40c7-946c-c6f4fc5092db",
+      "userId": "user_946bddda-9461-402a-9079-892e0ed9e0d1",
+      "query": "postgresql replication failover",
+      "recallMode": true,
+      "resultsCount": 2,
+      "timestamp": "2026-10-24T12:29:01.742Z"
+    },
+    {
+      "id": "hist_a32e6e38-9ada-411e-8d31-a00a0ed86cfe",
+      "userId": "user_d891fae9-ad3e-47a2-bc2a-3c8025889f33",
+      "query": "campus outreach collegiate societies",
+      "recallMode": true,
+      "resultsCount": 1,
+      "timestamp": "2026-10-24T12:29:01.742Z"
+    },
+    {
+      "id": "hist_eab2b617-091a-4ff4-8806-c3f19723df59",
+      "userId": "user_cf1d9aed-af98-40a7-99bb-b3082daf00e2",
+      "query": "postgresql replication failover",
+      "recallMode": true,
+      "resultsCount": 2,
+      "timestamp": "2026-10-24T12:27:54.607Z"
+    },
+    {
+      "id": "hist_05427440-f659-49f8-8a64-9bee998fcd4d",
+      "userId": "user_ca9c745a-49a3-47cc-a204-413f2d754265",
+      "query": "campus outreach collegiate societies",
+      "recallMode": true,
+      "resultsCount": 1,
+      "timestamp": "2026-10-24T12:27:54.607Z"
+    }
+  ],
+  "savedSearches": []
+}
